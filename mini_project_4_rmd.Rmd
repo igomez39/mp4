@@ -1,9 +1,10 @@
 ---
 title: "mini_project_4"
-author: "Stephanie Foukaris"
+author: "Stephanie, Isabel, Felicia""
 date: "April 26, 2018"
 output: html_document
 ---
 
 Made this R-Markdown to get started.
-Title
+
+IDEA: Choose a company, choose most recent movies, then look at male to female ratio in casting 
