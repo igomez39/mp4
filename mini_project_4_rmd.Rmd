@@ -1,0 +1,8 @@
+---
+title: "mini_project_4"
+author: "Stephanie Foukaris"
+date: "April 26, 2018"
+output: html_document
+---
+
+Made this R-Markdown to get started.
