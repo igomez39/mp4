@@ -6,6 +6,8 @@ output: html_document
   Code_Folding: TRUE 
 ---
 
+Question: Does the company "DREAMWORKS" use an equal amount of men and women in their top X films?
+
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
