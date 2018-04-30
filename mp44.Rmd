@@ -31,7 +31,8 @@ db %>%
   JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
   WHERE company_id = '10667' 
   AND kind_id = '1' 
-  AND production_year >= 2010;")
+  AND production_year >= 2010
+  AND (ci.role_id = '1' OR ci.role_id = '2');")
 ```
 #
 
