@@ -6,6 +6,8 @@ output: html_document
   Code_Folding: TRUE 
 ---
 
+Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
+
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
@@ -36,14 +38,3 @@ db %>%
 ```
 #
 
-## Including Plots
-
-You can also embed plots, for example:
-
-## R Markdown
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
