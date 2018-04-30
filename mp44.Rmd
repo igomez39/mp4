@@ -1,0 +1,48 @@
+---
+title: "mp4"
+author: "Felicia Curtis, Stephanie Foukaris, and Isabel Gomez,"
+date: "April 25, 2018"
+output: html_document
+  Code_Folding: TRUE 
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(mdsr)
+library(RMySQL)
+db <- dbConnect_scidb(dbname = "imdb")
+```
+#The first step is to find the code number for dreamworks.
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+
+db %>%
+  dbGetQuery(" SELECT * 
+FROM company_name
+WHERE name = 'Dreamworks';")
+
+``` 
+#Then using this information, we found all of the movies produced by Dreamworks. We did this by using movie_companies and joining it with the table 'titles' Because we are only looking for movies, we select kind_id =1 and the production year to be 2010 or later. 
+```{r }
+db %>%
+  dbGetQuery("SELECT *
+  FROM movie_companies AS mc
+  JOIN title AS t ON t.id = mc.movie_id
+  JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
+  WHERE company_id = '10667' 
+  AND kind_id = '1' 
+  AND production_year >= 2010;")
+```
+#
+
+## Including Plots
+
+You can also embed plots, for example:
+
+## R Markdown
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
