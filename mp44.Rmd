@@ -6,7 +6,7 @@ output:
   html_document:
     code_folding: hide
 ---
-#*DREAMWORKS* Is the Dream Eqaul for All
+#*DREAMWORKS* Is the Dream Equal for All
 
 ## Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
 
@@ -40,5 +40,6 @@ db %>%
   AND mi.info_type_id = '108'
   AND kind_id = '1' 
   AND production_year >= 2010
-  AND (ci.role_id = '1' OR ci.role_id = '2');")
+  AND (ci.role_id = '1' OR ci.role_id = '2')
+  ORDER BY info DESC;")
 ```
