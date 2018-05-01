@@ -80,3 +80,22 @@ AND mi.info_type_id = '108'
   GROUP BY title, role_id
   ORDER BY info ;")
 ```
+#We need to find a way to convert the info column into a numeric value so that the order will actually be by how much money each movie made. Until I get that sorted out, we can simply graph the most recent films (or maybe all). Here is the information based on year instead. 
+```{r, include=TRUE, warning=FALSE, message=FALSE}
+db %>%
+dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) FROM movie_companies AS mc
+  JOIN title AS t ON t.id = mc.movie_id
+  JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
+JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
+WHERE company_id = '10667'
+AND mi.info_type_id = '108'
+  AND kind_id = '1' 
+  AND production_year >= 2010
+  AND (ci.role_id = '1' OR ci.role_id = '2')
+  AND INSTR(info, 'USA')
+  AND ci.note IS NOT NULL
+  AND NOT INSTR(ci.note,'uncredited')
+  GROUP BY title, role_id
+  ORDER BY production_year DESC
+ ;")
+```
