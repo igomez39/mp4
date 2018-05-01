@@ -43,3 +43,20 @@ db %>%
   AND (ci.role_id = '1' OR ci.role_id = '2')
   ORDER BY info DESC;")
 ```
+
+```{r}
+db %>%
+  dbGetQuery("SELECT * FROM imdb.movie_companies AS mc
+  JOIN title AS t ON t.id = mc.movie_id
+  JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
+JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
+  WHERE company_id = '10667' 
+  AND mi.info_type_id = '108'
+  AND kind_id = '1' 
+  AND production_year >= 2010
+  AND (ci.role_id = '1' OR ci.role_id = '2')
+  AND INSTR(info, 'USA')
+  AND ci.note IS NOT NULL
+  ORDER BY info DESC 
+  LIMIT 0, 1000;")
+```
