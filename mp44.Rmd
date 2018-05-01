@@ -10,7 +10,7 @@ output:
 
 ## Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
 
-```{r setup, include=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(mdsr)
