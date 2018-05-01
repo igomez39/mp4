@@ -81,16 +81,20 @@ AND mi.info_type_id = '108'
   ORDER BY info ;")
 ```
 #We need to find a way to convert the info column into a numeric value so that the order will actually be by how much money each movie made. Until I get that sorted out, we can simply graph the most recent films (or maybe all). Here is the information based on year instead. 
+
+Created a dataframe called Dataset_Dreamworks
+
 ```{r, include=TRUE, warning=FALSE, message=FALSE}
-db %>%
-dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) FROM movie_companies AS mc
+Dataset_Dreamworks <- db %>%
+dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) 
+FROM movie_companies AS mc
   JOIN title AS t ON t.id = mc.movie_id
   JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
 JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
 WHERE company_id = '10667'
 AND mi.info_type_id = '108'
   AND kind_id = '1' 
-  AND production_year >= 2010
+  AND production_year >= 1996
   AND (ci.role_id = '1' OR ci.role_id = '2')
   AND INSTR(info, 'USA')
   AND ci.note IS NOT NULL
@@ -98,4 +102,21 @@ AND mi.info_type_id = '108'
   GROUP BY title, role_id
   ORDER BY production_year DESC
  ;")
+```
+
+Changed column name(ggplot didn't like the previous name)
+```{r}
+Dataset_Dreamworks <- Dataset_Dreamworks %>%
+  rename(count_cast = `COUNT(role_id)`)%>%
+  rename(Gender = `role_id`)
+```
+
+PLOT
+```{r}
+gender_differences <- ggplot(data=Dataset_Dreamworks, aes(y=count_cast, x=production_year)) +
+  geom_point(aes(color=factor(Gender)))+
+  labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from Dreamwork Productions")+
+  theme_igray()
+
+gender_differences + scale_colour_manual(values = c("blue", "red"))
 ```
