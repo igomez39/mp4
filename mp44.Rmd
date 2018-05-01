@@ -1,5 +1,5 @@
 ---
-title: "mp4"
+title: "Mini Project 4"
 author: "Felicia Curtis, Stephanie Foukaris, and Isabel Gomez"
 date: "April 25, 2018"
 output: 
@@ -11,7 +11,6 @@ output:
 ## Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
 
 ```{r message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(mdsr)
 library(RMySQL)
