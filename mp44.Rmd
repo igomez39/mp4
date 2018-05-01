@@ -10,41 +10,42 @@ output:
 
 ## Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
 
-```{r message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, include=TRUE}
 library(tidyverse)
 library(mdsr)
 library(RMySQL)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
 
-The first step is to find the code number for dreamworks.
+#The first step is to find the code number for dreamworks.
 
-```{r message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, include=TRUE}
 db %>%
   dbGetQuery(" SELECT * 
 FROM company_name
 WHERE name = 'Dreamworks';")
-
 ``` 
 
-Then using this information, we found all of the movies produced by Dreamworks. We did this by using movie_companies and joining it with the table 'titles' Because we are only looking for movies, we select kind_id =1 and the production year to be 2010 or later. 
+#Then using this information, we found all of the movies produced by Dreamworks. We did this by using movie_companies and joining it with the table 'titles' Because we are only looking for movies, we select kind_id =1 and the production year to be 2010 or later. 
 
-```{r message=FALSE, warning=FALSE}
+```{r, message= FALSE, warning=FALSE, include= TRUE}
 db %>%
   dbGetQuery("SELECT *
   FROM movie_companies AS mc
   JOIN title AS t ON t.id = mc.movie_id
   JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
- RIGHT JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
+ JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
   WHERE company_id = '10667' 
   AND mi.info_type_id = '108'
   AND kind_id = '1' 
   AND production_year >= 2010
   AND (ci.role_id = '1' OR ci.role_id = '2')
-  ORDER BY info DESC;")
+  ORDER BY info DESC
+  LIMIT 0, 5;")
 ```
 
-```{r}
+#This query filters out all the opening weekends in countries outside of the United States, additionally, it has the amount of money earned during opening weekend in descending order
+```{r, include=TRUE, warning=FALSE, message=FALSE}
 db %>%
   dbGetQuery("SELECT * FROM imdb.movie_companies AS mc
   JOIN title AS t ON t.id = mc.movie_id
@@ -58,5 +59,24 @@ JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
   AND INSTR(info, 'USA')
   AND ci.note IS NOT NULL
   ORDER BY info DESC 
-  LIMIT 0, 1000;")
+  LIMIT 0, 5;")
+```
+#This query simplifies the data we're asking for, so it only incorporates the necessary information. Additionally, we have attempted to count the number of actresses and actors in each movie. 
+
+```{r, message=FALSE, warning=FALSE, include=TRUE}
+db %>%
+dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) FROM movie_companies AS mc
+  JOIN title AS t ON t.id = mc.movie_id
+  JOIN cast_info AS ci ON ci.movie_id = mc.movie_id
+JOIN movie_info AS mi ON mi.movie_id = mc.movie_id
+WHERE company_id = '10667'
+AND mi.info_type_id = '108'
+  AND kind_id = '1' 
+  AND production_year >= 2010
+  AND (ci.role_id = '1' OR ci.role_id = '2')
+  AND INSTR(info, 'USA')
+  AND ci.note IS NOT NULL
+  AND NOT INSTR(ci.note,'uncredited')
+  GROUP BY title, role_id
+  ORDER BY info ;")
 ```
