@@ -80,6 +80,9 @@ AND mi.info_type_id = '108'
   GROUP BY title, role_id
   ORDER BY info ;")
 ```
+
+#THIS IS WHAT WE NEED (STUFF ABOVE IS OLD)
+
 #We need to find a way to convert the info column into a numeric value so that the order will actually be by how much money each movie made. Until I get that sorted out, we can simply graph the most recent films (or maybe all). Here is the information based on year instead. 
 
 Created a dataframe called Dataset_Dreamworks
@@ -119,4 +122,29 @@ gender_differences <- ggplot(data=Dataset_Dreamworks, aes(y=count_cast, x=produc
   theme_igray()
 
 gender_differences + scale_colour_manual(values = c("blue", "red"))
+```
+
+
+
+```{r}
+title = c("Cowboys & Aliens", "Little Fockers", "Real Steel", "Anchorman 2", "The Help")
+gender = c("M","M","M","M","M","F","F","F","F","F")
+cast_count = c(5,9,2,7,0,1,5,0,1,4)
+Dreamworks_5 = data.frame(title, cast_count, gender)
+```
+
+
+
+```{r}
+ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor(gender))) + 
+  geom_col() +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15), labels = scales::comma) +
+    labs(
+    title = "Top Five Films (2010-2017) - Opening Day",
+    subtitle = "Dreamworks",
+    caption = "Source: IMDB",
+    x = "Title",
+    y = "Actor/Actress Count"
+    )
+  
 ```
