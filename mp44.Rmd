@@ -6,30 +6,27 @@ output:
   html_document:
     code_folding: hide
 ---
-#*DREAMWORKS* Is the Dream Equal for All
 
-## Question: Does the company "DREAMWORKS" use an equal number of men and women in their top 5 films from 2010 to 2017?
+This blog examines gender equality in the film industry and specifically in the company "Dreamworks".  We used GitHub to collaborate with each other. [^1] Enjoy our blog post!
+
+
+#*DREAMWORKS*: Is the Dream Equal for All
+
+![](https://pmcvariety.files.wordpress.com/2017/01/dreamworks-animation-logo.jpg?w=1000&h=563&crop=1)
+
+### Question: Does the company "DREAMWORKS" use an equal number of men and women in their films and specifically in their top 5 films from 2010 to 2017?
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
+#loading all the packages we need for this project
 library(tidyverse)
 library(mdsr)
 library(RMySQL)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
 
-The first step is to find the code number for dreamworks. (We don't need this in the final blog, we only need to mention it)
-
-```{r message=FALSE, warning=FALSE, include=TRUE}
-db %>%
-  dbGetQuery(" SELECT * 
-FROM company_name
-WHERE name = 'Dreamworks';")
-``` 
-
-
-Created a dataframe called Dataset_Dreamworks
 
 ```{r include=TRUE, warning=FALSE, message=FALSE}
+#This is our final querry we used:
 Dataset_Dreamworks <- db %>%
 dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) 
 FROM movie_companies AS mc
@@ -49,17 +46,18 @@ AND mi.info_type_id = '108'
  ;")
 ```
 
-Changed column name(ggplot didn't like the previous name)
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
+#Changed the column name of the column where we count the number of people.
 Dataset_Dreamworks <- Dataset_Dreamworks %>%
   rename(count_cast = `COUNT(role_id)`)%>%
   rename(Gender = `role_id`)
 ```
 
-PLOT (1996-2017)
+####Graph showing main actors and actresses in the company Dreamworks during years 1996-2017.
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
+#Used ggplot to plot number of actors and actresses per year.
 gender_differences <- ggplot(data=Dataset_Dreamworks, aes(y=count_cast, x=production_year)) +
   geom_point(aes(color=factor(Gender)))+
   labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from Dreamwork Productions")
@@ -67,9 +65,10 @@ gender_differences <- ggplot(data=Dataset_Dreamworks, aes(y=count_cast, x=produc
 gender_differences + scale_colour_manual(values = c("blue", "red"))
 ```
 
-#Top 5 movies plot
+####This graph shows the proportion of men and women in Dreawork's top 5 movies between 2010-2017.
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
+#Created a dataframe showing top 5 movies according to opening date earnings.
 title = c("Cowboys & Aliens", "Little Fockers", "Real Steel", "Anchorman 2", "The Help")
 gender = c("M","M","M","M","M","F","F","F","F","F")
 cast_count = c(5,9,2,7,0,1,5,0,1,4)
@@ -78,6 +77,7 @@ Dreamworks_5 = data.frame(title, cast_count, gender)
 
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
+#Used ggplot to make a histogram of the total number or main actors and actresses in each of the top 5 movies and colored each bar with the proportion of men and women.
 ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor(gender))) + 
   geom_col() +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 15), labels = scales::comma) +
@@ -90,3 +90,5 @@ ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor
     )
   
 ```
+
+[^1]: [This is the link to the github repository](https://github.com/igomez39/mp4.git)
