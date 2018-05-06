@@ -19,6 +19,8 @@ This blog examines gender equality in the film industry and specifically in the 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #loading all the packages we need for this project
 library(tidyverse)
+library(ggthemes)
+library(RColorBrewer)
 library(mdsr)
 library(RMySQL)
 db <- dbConnect_scidb(dbname = "imdb")
@@ -52,7 +54,12 @@ AND mi.info_type_id = '108'
 Dataset_Dreamworks1 <- Dataset_Dreamworks %>%
   rename(count_cast = `COUNT(role_id)`)%>%
   rename(Gender = `role_id`) %>%
-  mutate(genders = `sum(distinct(role_id))`)
+  
+Dataset_Dreamworks1 %>%
+  group_by(production_year) %>%
+  mutate(genders = sum(Gender))
+
+View(Dataset_Dreamworks1)
 
 ```
 
@@ -60,7 +67,7 @@ Dataset_Dreamworks1 <- Dataset_Dreamworks %>%
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #Used ggplot to plot number of actors and actresses per year.
-gender_differences <- ggplot(data=Dataset_Dreamworks, aes(y=count_cast, x=production_year)) +
+gender_differences <- ggplot(data=Dataset_Dreamworks1, aes(y=count_cast, x=production_year)) +
   geom_point(aes(color=factor(Gender)))+
   labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from Dreamwork Productions")
 
@@ -75,6 +82,7 @@ title = c("Cowboys & Aliens", "Little Fockers", "Real Steel", "Anchorman 2", "Th
 gender = c("M","M","M","M","M","F","F","F","F","F")
 cast_count = c(5,9,2,7,0,1,5,0,1,4)
 Dreamworks_5 = data.frame(title, cast_count, gender)
+display.brewer.pal(12, "Paired")
 ```
 
 
@@ -89,10 +97,10 @@ ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor
     caption = "Source: IMDB",
     x = "Movie Title",
     y = "Actor/Actress Count",
-    fill= "Gender")
-  
-library(ggthemes)
-
+    fill= "Gender") + 
+    theme(axis.title.x = element_blank(), 
+          title = element_text(family = "Courier", size = 17, face = 'bold'), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), plot.background = element_rect(fill = "#F7F7F7", colour = "#CCECE6"), panel.background = element_rect(fill = "#F7F7F7", colour = "#CCECE6"), legend.background = element_rect(fill = "#F7F7F7"))+
+scale_fill_manual(values = c("#FA9FB5","#CCECE6"))
 ```
 
 [^1]: [This is the link to the github repository](https://github.com/igomez39/mp4.git)
