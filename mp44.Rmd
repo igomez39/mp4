@@ -49,9 +49,11 @@ AND mi.info_type_id = '108'
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #Changed the column name of the column where we count the number of people.
-Dataset_Dreamworks <- Dataset_Dreamworks %>%
+Dataset_Dreamworks1 <- Dataset_Dreamworks %>%
   rename(count_cast = `COUNT(role_id)`)%>%
-  rename(Gender = `role_id`)
+  rename(Gender = `role_id`) %>%
+  mutate(genders = `sum(distinct(role_id))`)
+
 ```
 
 ####Graph showing main actors and actresses in the company Dreamworks during years 1996-2017.
@@ -78,17 +80,19 @@ Dreamworks_5 = data.frame(title, cast_count, gender)
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #Used ggplot to make a histogram of the total number or main actors and actresses in each of the top 5 movies and colored each bar with the proportion of men and women.
-ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor(gender))) + 
+ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor(gender))) + theme_solarized_2() +
   geom_col() +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 15), labels = scales::comma) +
     labs(
     title = "Top Five Films (2010-2017) - Opening Day",
     subtitle = "Dreamworks",
     caption = "Source: IMDB",
-    x = "Title",
-    y = "Actor/Actress Count"
-    )
+    x = "Movie Title",
+    y = "Actor/Actress Count",
+    fill= "Gender")
   
+library(ggthemes)
+
 ```
 
 [^1]: [This is the link to the github repository](https://github.com/igomez39/mp4.git)
