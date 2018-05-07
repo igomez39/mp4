@@ -72,7 +72,7 @@ gender_differences <- ggplot(data=Dataset_Dreamworks2, aes(y=Total_Amount, x=pro
 gender_differences + 
   theme (  title = element_text(family = "Courier", size = 13, face = 'bold'), plot.background = element_rect (fill = "#F7F7F7", colour = "#CCECE6"),
            panel.background = element_rect(fill = "#F7F7F7", colour = "#CCECE6"),
-            legend.background = element_rect(fill = "#F7F7F7"))+ scale_colour_manual(labels = c("Female", "Male"), values = c("#B2DF8A", "#FA9FB5"))
+            legend.background = element_rect(fill = "#F7F7 F7"))+ scale_colour_manual(labels = c("Female", "Male"), values = c("#B2DF8A", "#FA9FB5"))
 ```
 
 ####This graph shows the proportion of men and women in Dreawork's top 5 movies between 2010-2017.
