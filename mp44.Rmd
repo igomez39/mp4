@@ -28,7 +28,7 @@ db <- dbConnect_scidb(dbname = "imdb")
 
 
 ```{r include=TRUE, warning=FALSE, message=FALSE}
-#This is our final querry we used:
+#This is the final querry we used:
 Dataset_Dreamworks <- db %>%
 dbGetQuery("SELECT title, production_year, ci.note, ci.role_id, mi.info, COUNT(role_id) 
 FROM movie_companies AS mc
@@ -53,7 +53,7 @@ AND mi.info_type_id = '108'
 #Changed the column name of the column where we count the number of people.
 Dataset_Dreamworks1 <- Dataset_Dreamworks %>%
   rename(count_cast = `COUNT(role_id)`)%>%
-  rename(Gender = `role_id`) %>%
+  rename(Gender = `role_id`)
   
 Dataset_Dreamworks2 <- Dataset_Dreamworks1 %>%
   group_by(production_year, Gender) %>%
