@@ -58,9 +58,6 @@ Dataset_Dreamworks1 <- Dataset_Dreamworks %>%
 Dataset_Dreamworks2 <- Dataset_Dreamworks1 %>%
   group_by(production_year, Gender) %>%
   summarise(Total_Amount = sum(count_cast))
-
-View(Dataset_Dreamworks1)
-
 ```
 
 ####Graph showing main actors and actresses in the company Dreamworks during years 1996-2017.
@@ -69,7 +66,7 @@ View(Dataset_Dreamworks1)
 #Used ggplot to plot number of actors and actresses per year.
 gender_differences <- ggplot(data=Dataset_Dreamworks2, aes(y=Total_Amount, x=production_year)) +
   geom_point(aes(color=factor(Gender)))+
-  geom_line(aes(linetpye= factor(Gender)))+
+  geom_line(aes(color=factor(Gender)))+
   labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from Dreamwork Productions", color = "Gender")
 
 gender_differences + 
@@ -86,8 +83,6 @@ title = c("Cowboys & Aliens", "Little Fockers", "Real Steel", "Anchorman 2", "Th
 gender = c("M","M","M","M","M","F","F","F","F","F")
 cast_count = c(5,9,2,7,0,1,5,0,1,4)
 Dreamworks_5 = data.frame(title, cast_count, gender)
-display.brewer.pal(12, "Paired")
-brewer.pal(12, "Paired")
 ```
 
 
