@@ -1,7 +1,7 @@
 ---
 title: "Mini Project 4"
 author: "Felicia Curtis, Stephanie Foukaris, and Isabel Gomez"
-date: "April 25, 2018"
+date: "May 7, 2018"
 output: 
   html_document:
     code_folding: hide
@@ -60,14 +60,13 @@ Dataset_Dreamworks2 <- Dataset_Dreamworks1 %>%
   summarise(Total_Amount = sum(count_cast))
 ```
 
-####Graph showing main actors and actresses in the company Dreamworks during years 1996-2017.
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #Used ggplot to plot number of actors and actresses per year.
 gender_differences <- ggplot(data=Dataset_Dreamworks2, aes(y=Total_Amount, x=production_year)) +
   geom_point(aes(color=factor(Gender)))+
   geom_line(aes(color=factor(Gender)))+
-  labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from Dreamwork Productions", color = "Gender")
+  labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from DreamWork Productions", color = "Gender")
 
 gender_differences + 
   theme (plot.background = element_rect (fill = "#F7F7F7", colour = "#CCECE6"),
@@ -75,7 +74,14 @@ gender_differences +
             legend.background = element_rect(fill = "#F7F7F7"))+ scale_colour_manual(labels = c("Male", "Female"), values = c("#B2DF8A", "#FA9FB5"))
 ```
 
-####This graph shows the proportion of men and women in Dreawork's top 5 movies between 2010-2017.
+####Graph showing main actors and actresses in the company DreamWorks during years 1996-2017.
+
+
+The global film industry is a revenue juggernaut that shows healthy projections for the coming years, as the global box office revenue is forecast to increase from about $38 billion U.S. dollars in 2016 to nearly 50 billion U.S. dollars in 2020. The U.S. is the third largest film market in the world in terms of tickets sold per year, second only to China and India. DreamWorks Studios is a well respected production company responsible for the critically acclaimed films Lincoln, Cast Away, and Gladiators. While DreamWorks is a household studio name, do they grant the DREAM of hollywood stardom equally, or does having a Y chromosome help? In reviewing the data, DreamWorks clearly has a gender bias with top grossing films as well as gender typecasting with respect to female characters.
+
+In the first graph, all of movies that were released by DreamWorks are represented from 1996 (when DreamWorks first started) until 2017 and shows the total number of men and the number of women cast members in each year. It is clear that women are poorly represented in the DreamWorks franchise. The only year which had an equal amount of female to male representation was 1999.  In that year, Dreamworks released six movies, 2 of which were romantic comedies, and 1 was an American Drama. The small of amount of movies produced, along with the kind of movies produced: drama, romantic and comedy, most likely gave rise to the equal amount of representation on Dreamworks part. This is due to the fact that although Dreamworks represents itself as a family friendly movie company, they still only listen to the mainstream culture. In 1999, pop culture wanted movies that involved the complex relationship between a man and women, regardless of the genre. Therefore, because the male and female romantic relationship was in pop culture in the late ‘90s all movies, regardless of genre, had this complex relationship, which used the ratio of men to women to be closer to 1:1. The critical acclaim of 1999 releases such as Forces of Nature, American Beauty, and Love Letter, which highlight complex interpersonal romantic heteronormative movies kept the gender role in the 1999 movie year as quantitatively equal yet still highlighted the  life of women as the sum total of their relationships to men. Nonetheless, women characters routinely remain as a small percentage of cast and underdeveloped as characters.
+
+
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #Created a dataframe showing top 5 movies according to opening date earnings.
@@ -93,7 +99,7 @@ ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor
   scale_y_continuous(expand = c(0, 0), limits = c(0, 15), labels = scales::comma) +
     labs(
     title = "Top Five Films (2010-2017) - Opening Day",
-    subtitle = "Dreamworks",
+    subtitle = "DreamWorks",
     caption = "Source: IMDB",
     x = "Movie Title",
     y = "Actor/Actress Count",
@@ -102,5 +108,21 @@ ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor
           title = element_text(family = "Courier", size = 17, face = 'bold'), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), plot.background = element_rect(fill = "#F7F7F7", colour = "#CCECE6"), panel.background = element_rect(fill = "#F7F7F7", colour = "#CCECE6"), legend.background = element_rect(fill = "#F7F7F7"))+
 scale_fill_manual(values = c("#FA9FB5","#CCECE6"))
 ```
+
+####Graph showing the proportion of men and women in DreamWork's top 5 movies between 2010-2017.
+ 
+
+The second graph highlights the five biggest opening weekend box office hits for DreamWorks. The gender disparity was again, well highlighted in the ratio of men to women, but what the top five movies also reflect is the clear gender stereotype within films. While men portray a professional (admittedly a very poor professional newscaster) in Anchorman and a worldsaving hero in Cowboys & Aliens, the movie women are most represented in is domestic service in the Help. 
+
+While some may argue that society and viewers prefer to see strong male characters and women as supporting or background characters, movie box office ticket sales do not support this. Star Wars: The Last Jedi, which featured the first female jedi as the title character, overtook Disney’s live-action Beauty and the Beast on New Year’s Eve to become the top grossing film of the year in the US and Canada, according to studio estimates. Wonder Woman, the first world world war-set superhero tale that has so far been DC Comics’ only critical hit, came in at number three. The last time the top three films featured women in the staring roll was 1958, when South Pacific, Auntie Mame, and Cat on a Hot Tin Roof were the most popular American movies, according to box-office tracking websites. (Paul, 2018) The box office ticket sales clearly show the public wants to watch strong positive women not as supporting cast or playing stereotypical bubble blond bimbos simpering for rescue from the night in shining armor, but kicking ass herself and solving her own problems! 
+
+We must represent women within films as they are in life. Able to save themselves and strong enough to self guide through the trials and tribulations of life’s vast difficulties. We must project women out of the maid’s uniform, and into the suit of the CEO. From the bedroom, as an accessory of a man, to the boardroom. Allowing our young daughters to see they too can be a jedi is the first step for their envisioning themselves as president. In keeping with the times, we would hope equal screen time will translate to a more accurate reflection of the dynamic world we live in, with women standing alongside more diverse casts. Maybe the non-binary nature of gender will exceed the need to label male and female at all. The DREAM will be realized for us all.
+
+
+Reference: Owen, Paul. (2018) “Women-fronted films are top three highest-grossing movies of 2017”. The Guardian, New York. Electronic Document. https://www.google.com/url?q=https%3A%2F%2Fwww.theguardian.com%2Ffilm%2Fstar-wars--episode-viii accessed May 2, 2018
+
+
+
+
 
 [^1]: [This is the link to the github repository](https://github.com/igomez39/mp4.git)
