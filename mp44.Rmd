@@ -7,14 +7,15 @@ output:
     code_folding: hide
 ---
 
-This blog examines gender equality in the film industry and specifically in the company "Dreamworks".  We used GitHub to collaborate with each other. [^1] Enjoy our blog post!
+This blog examines gender equality in the film industry and specifically in the company "Dreamworks".  We used GitHub to collaborate with each other. [^1] We tried answering the question: Does the company "DREAMWORKS" use an equal number of men and women in their films and specifically in their top 5 films from 2010 to 2017? Enjoy our blog post!
 
 
 #*DREAMWORKS*: Is the Dream Equal for All
 
 ![](https://pmcvariety.files.wordpress.com/2017/01/dreamworks-animation-logo.jpg?w=1000&h=563&crop=1)
 
-### Question: Does the company "DREAMWORKS" use an equal number of men and women in their films and specifically in their top 5 films from 2010 to 2017?
+
+The global film industry is a revenue juggernaut that shows healthy projections for the coming years, as the global box office revenue is forecast to increase from about $38 billion U.S. dollars in 2016 to nearly 50 billion U.S. dollars in 2020. The U.S. is the third largest film market in the world in terms of tickets sold per year, second only to China and India. DreamWorks Studios is a well respected production company responsible for the critically acclaimed films Lincoln, Cast Away, and Gladiators. While DreamWorks is a household studio name, do they grant the DREAM of hollywood stardom equally, or does having a Y chromosome help? In reviewing the data, DreamWorks clearly has a gender bias with top grossing films as well as gender typecasting with respect to female characters.
 
 ```{r message=FALSE, warning=FALSE, include=TRUE}
 #loading all the packages we need for this project
@@ -66,7 +67,7 @@ Dataset_Dreamworks2 <- Dataset_Dreamworks1 %>%
 gender_differences <- ggplot(data=Dataset_Dreamworks2, aes(y=Total_Amount, x=production_year)) +
   geom_point(aes(color=factor(Gender)))+
   geom_line(aes(color=factor(Gender)))+
-  labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from DreamWork Productions", color = "Gender")
+  labs(x= "Production Year", y= "Number of Actors/Actresses in Cast", title = "Gender Gap in Top Movies from DreamWorks Productions", color = "Gender")
 
 gender_differences + 
   theme (plot.background = element_rect (fill = "#F7F7F7", colour = "#CCECE6"),
@@ -76,8 +77,6 @@ gender_differences +
 
 ####Graph showing main actors and actresses in the company DreamWorks during years 1996-2017.
 
-
-The global film industry is a revenue juggernaut that shows healthy projections for the coming years, as the global box office revenue is forecast to increase from about $38 billion U.S. dollars in 2016 to nearly 50 billion U.S. dollars in 2020. The U.S. is the third largest film market in the world in terms of tickets sold per year, second only to China and India. DreamWorks Studios is a well respected production company responsible for the critically acclaimed films Lincoln, Cast Away, and Gladiators. While DreamWorks is a household studio name, do they grant the DREAM of hollywood stardom equally, or does having a Y chromosome help? In reviewing the data, DreamWorks clearly has a gender bias with top grossing films as well as gender typecasting with respect to female characters.
 
 In the first graph, all of movies that were released by DreamWorks are represented from 1996 (when DreamWorks first started) until 2017 and shows the total number of men and the number of women cast members in each year. It is clear that women are poorly represented in the DreamWorks franchise. The only year which had an equal amount of female to male representation was 1999.  In that year, Dreamworks released six movies, 2 of which were romantic comedies, and 1 was an American Drama. The small of amount of movies produced, along with the kind of movies produced: drama, romantic and comedy, most likely gave rise to the equal amount of representation on Dreamworks part. This is due to the fact that although Dreamworks represents itself as a family friendly movie company, they still only listen to the mainstream culture. In 1999, pop culture wanted movies that involved the complex relationship between a man and women, regardless of the genre. Therefore, because the male and female romantic relationship was in pop culture in the late ‘90s all movies, regardless of genre, had this complex relationship, which used the ratio of men to women to be closer to 1:1. The critical acclaim of 1999 releases such as Forces of Nature, American Beauty, and Love Letter, which highlight complex interpersonal romantic heteronormative movies kept the gender role in the 1999 movie year as quantitatively equal yet still highlighted the  life of women as the sum total of their relationships to men. Nonetheless, women characters routinely remain as a small percentage of cast and underdeveloped as characters.
 
@@ -109,7 +108,7 @@ ggplot(data = Dreamworks_5, mapping = aes(x = title, y = cast_count, fill=factor
 scale_fill_manual(values = c("#FA9FB5","#CCECE6"))
 ```
 
-####Graph showing the proportion of men and women in DreamWork's top 5 movies between 2010-2017.
+####Graph showing the proportion of men and women in DreamWorks' top 5 movies between 2010-2017.
  
 
 The second graph highlights the five biggest opening weekend box office hits for DreamWorks. The gender disparity was again, well highlighted in the ratio of men to women, but what the top five movies also reflect is the clear gender stereotype within films. While men portray a professional (admittedly a very poor professional newscaster) in Anchorman and a worldsaving hero in Cowboys & Aliens, the movie women are most represented in is domestic service in the Help. 
